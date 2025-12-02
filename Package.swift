@@ -13,7 +13,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
         // Database dependencies
         .package(url: "https://github.com/vapor/fluent.git", from: "4.11.0"),
-        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.9.0")
+        .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0")
     ],
     targets: [
         .executableTarget(
@@ -24,7 +24,7 @@ let package = Package(
                 .product(name: "NIOPosix", package: "swift-nio"),
                 // Database dependencies
                 .product(name: "Fluent", package: "fluent"),
-                .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver")
+                .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver")
             ],
             swiftSettings: swiftSettings
         ),
