@@ -16,8 +16,7 @@ struct CreatePlaceTableMigration: AsyncMigration {
         try await database.schema("places")
             .id()
             .field("name", .string)
-            .field("coordinates_latitude", .double, .required)
-            .field("coordinates_longitude", .double, .required)
+            .field("coordinates", .dictionary, .required)
             .create()
     }
     
