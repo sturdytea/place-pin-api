@@ -1,3 +1,4 @@
+import JWT
 import Vapor
 
 func routes(_ app: Application) throws {
@@ -20,5 +21,21 @@ func routes(_ app: Application) throws {
             throw Abort(.notFound)
         }
         return place
+    }
+    
+    app.post("login") { req async throws -> [String: String] in
+        let payload = AppleIdentityTokenPayload(
+            subject: "vapor",
+            expiration: .init(value: .distantFuture),
+            isAdmin: true
+        )
+        return try ["token": req.jwt.sign(payload)]
+    }
+    
+    // Fetch and verify JWT from incoming request.
+    app.get("me") { req async throws -> HTTPStatus in
+        let payload = try req.jwt.verify(as: AppleIdentityTokenPayload.self)
+        print(payload)
+        return .ok
     }
 }
